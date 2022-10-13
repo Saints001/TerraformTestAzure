@@ -1,9 +1,9 @@
 terraform {
   backend "azurerm" {
-    resource_group_name  = "jonnychipz-infra"
-    storage_account_name = "jonnychipztstate"
-    container_name       = "tstate"
-    key                  = "77Q4LUB5o9wRdbPYDt+0kGZP+L8Sj9E/FNXg7lZBQS5z3mLod5cyan4wA19CR1SmlqIRUFQfhuQrPVaGzNhjGw=="
+    resource_group_name  = "BusolaRG"
+    storage_account_name = "busolastorage"
+    container_name       = "busolacontainer"
+    key                  = "vX2aWnTRG1tjNRKalXyOFB6x49n614UegwcCUTnwIW7W7vk4OR5/iarncFntBqov9I7Fsx3MqT23+AStvQhjiw=="
   }
 
   required_providers {
@@ -24,12 +24,12 @@ provider "azurerm" {
 data "azurerm_client_config" "current" {}
 # Create our Resource Group - Jonnychipz-RG
 resource "azurerm_resource_group" "rg" {
-  name     = "jonnychipz-app01"
+  name     = "prophetRG"
   location = "UK South"
 }
 # Create our Virtual Network - Jonnychipz-VNET
 resource "azurerm_virtual_network" "vnet" {
-  name                = "jonnychipzvnet"
+  name                = "prophetvnet"
   address_space       = ["10.0.0.0/16"]
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
@@ -43,7 +43,7 @@ resource "azurerm_subnet" "sn" {
 }
 # Create our Azure Storage Account - jonnychipzsa
 resource "azurerm_storage_account" "jonnychipzsa" {
-  name                     = "jonnychipzsa"
+  name                     = "dadonstorage"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
@@ -54,7 +54,7 @@ resource "azurerm_storage_account" "jonnychipzsa" {
 }
 # Create our vNIC for our VM and assign it to our Virtual Machines Subnet
 resource "azurerm_network_interface" "vmnic" {
-  name                = "jonnychipzvm01nic"
+  name                = "prophetnic"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
@@ -66,7 +66,7 @@ resource "azurerm_network_interface" "vmnic" {
 }
 # Create our Virtual Machine - Jonnychipz-VM01
 resource "azurerm_virtual_machine" "jonnychipzvm01" {
-  name                  = "jonnychipzvm01"
+  name                  = "prophetvm01"
   location              = azurerm_resource_group.rg.location
   resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.vmnic.id]
@@ -78,13 +78,13 @@ resource "azurerm_virtual_machine" "jonnychipzvm01" {
     version   = "latest"
   }
   storage_os_disk {
-    name              = "jonnychipzvm01os"
+    name              = "prophetvm01os"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
   os_profile {
-    computer_name  = "jonnychipzvm01"
+    computer_name  = "prophetvm02"
     admin_username = "jonnychipz"
     admin_password = "Password123$"
   }

@@ -1,6 +1,6 @@
 backend "azurerm" {
-    resource_group_name   = "jonnychipz-infra"
-    storage_account_name  = "jonnychipztstate"
-    container_name        = "tstate"
-    key                   = "77Q4LUB5o9wRdbPYDt+0kGZP+L8Sj9E/FNXg7lZBQS5z3mLod5cyan4wA19CR1SmlqIRUFQfhuQrPVaGzNhjGw=="
+    resource_group_name   = "BusolaRG"
+    storage_account_name  = "busolastorage"
+    container_name        = "busolastate"
+    key                   = "vX2aWnTRG1tjNRKalXyOFB6x49n614UegwcCUTnwIW7W7vk4OR5/iarncFntBqov9I7Fsx3MqT23+AStvQhjiw=="
 }
